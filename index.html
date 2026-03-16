@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>My Home</title>
+    <meta name="description" content="Personal homepage" />
+    <link rel="stylesheet" href="assets/styles.css" />
+  </head>
+  <body class="view-intro">
+    <div class="bg">
+      <video id="introVideo" autoplay muted loop playsinline preload="auto" poster="assets/water.jpg">
+        <source src="assets/water.mp4" type="video/mp4" />
+      </video>
+      <canvas id="fluid"></canvas>
+      <div class="noise"></div>
+      <div class="grid"></div>
+    </div>
+    <canvas id="smokey-fluid-canvas" aria-hidden="true"></canvas>
+
+    <main class="stage">
+      <section class="screen intro" aria-hidden="false">
+        <div class="intro-inner">
+          
+          <h1 class="title" id="introTitle">Your Name</h1>
+          <p class="subtitle" id="introSubtitle">Designing resilient systems and delightful interfaces.</p>
+          <button class="enter" id="enterBtn" type="button">Enter</button>
+        </div>
+        <div class="shape">
+          <svg viewBox="0 0 1440 800" preserveAspectRatio="none" aria-hidden="true">
+            <path
+              d="M -44,-50 C -52.71,28.52 15.86,8.186 184,14.69 383.3,22.39 462.5,12.58 638,14 835.5,15.6 987,6.4 1194,13.86 1661,30.68 1652,-36.74 1582,-140.1 1512,-243.5 15.88,-589.5 -44,-50 Z"
+            ></path>
+          </svg>
+        </div>
+      </section>
+
+      <section class="screen main" aria-hidden="true">
+        <div class="card" id="card">
+          <div class="avatar" id="avatar">YN</div>
+          <h2 class="name" id="mainName">Your Name</h2>
+          <p class="signature" id="mainSignature">Build. Ship. Iterate.</p>
+          <ul class="links" id="links"></ul>
+          <button class="back" id="backBtn" type="button">Back</button>
+        </div>
+      </section>
+
+      <section class="screen portfolio" aria-hidden="true">
+        <div class="card portfolio-card" id="portfolioCard">
+          <div class="portfolio-header">
+            <h2 class="name">Portfolio</h2>
+            <button class="back" id="portfolioBackBtn" type="button">Back</button>
+          </div>
+          <div class="bento-grid" id="portfolioGrid"></div>
+        </div>
+      </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/smokey-fluid-cursor@latest/dist/index.global.js"></script>
+    <script src="assets/app.js"></script>
+  </body>
+</html>

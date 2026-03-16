@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="zh">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Portfolio</title>
+    <link rel="stylesheet" href="assets/styles.css" />
+  </head>
+  <body class="viewer-page">
+    <main class="reader">
+      <header class="reader-header">
+        <h1 class="reader-title" id="readerTitle">作品</h1>
+        <button class="reader-back" id="readerBackBtn" type="button">返回</button>
+      </header>
+      <section class="reader-body" id="readerBody"></section>
+    </main>
+
+    <script>
+      const params = new URLSearchParams(location.search);
+      const file = params.get("file");
+      const type = params.get("type");
+      const title = params.get("title");
+
+      const titleEl = document.getElementById("readerTitle");
+      const bodyEl = document.getElementById("readerBody");
+
+      if (title) titleEl.textContent = title;
+
+      const backBtn = document.getElementById("readerBackBtn");
+      if (backBtn) {
+        backBtn.addEventListener("click", () => {
+          if (history.length > 1) {
+            history.back();
+          } else {
+            location.href = "index.html#portfolio";
+          }
+        });
+      }
+
+      const showError = (msg) => {
+        bodyEl.innerHTML = `<p class="reader-error">${msg}</p>`;
+      };
+
+      const stripRtf = (rtf) => {
+        let text = rtf;
+        text = text.replace(/\\par[d]?/g, "\n");
+        text = text.replace(/\\'[0-9a-fA-F]{2}/g, (match) => {
+          const hex = match.slice(2);
+          const code = parseInt(hex, 16);
+          return String.fromCharCode(code);
+        });
+        text = text.replace(/\\[a-zA-Z]+-?\d* ?/g, "");
+        text = text.replace(/[{}]/g, "");
+        text = text.replace(/\n{3,}/g, "\n\n");
+        return text.trim();
+      };
+
+      const renderText = (content) => {
+        const pre = document.createElement("pre");
+        pre.className = "reader-text";
+        pre.textContent = content;
+        bodyEl.appendChild(pre);
+      };
+
+      const fileUrl = file ? encodeURI(file) : "";
+
+      if (!file || !type) {
+        showError("未找到作品文件。");
+      } else if (type === "pdf") {
+        const embed = document.createElement("embed");
+        embed.className = "reader-embed";
+        embed.src = fileUrl;
+        embed.type = "application/pdf";
+        bodyEl.appendChild(embed);
+      } else if (type === "txt") {
+        fetch(fileUrl)
+          .then((res) => res.text())
+          .then(renderText)
+          .catch(() => {
+            const frame = document.createElement("iframe");
+            frame.className = "reader-embed";
+            frame.src = fileUrl;
+            bodyEl.appendChild(frame);
+          });
+      } else if (type === "rtf") {
+        fetch(fileUrl)
+          .then((res) => res.text())
+          .then((rtf) => renderText(stripRtf(rtf)))
+          .catch(() => {
+            const frame = document.createElement("iframe");
+            frame.className = "reader-embed";
+            frame.src = fileUrl;
+            bodyEl.appendChild(frame);
+          });
+      } else {
+        showError("不支持的文件类型。");
+      }
+    </script>
+  </body>
+</html>
