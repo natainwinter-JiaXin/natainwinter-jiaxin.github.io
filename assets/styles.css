@@ -385,6 +385,10 @@ body.view-main #smokey-fluid-canvas {
   display: block;
 }
 
+body.view-intro #smokey-fluid-canvas {
+  display: block;
+}
+
 @media (max-width: 600px) {
   .card {
     padding: 28px 22px;

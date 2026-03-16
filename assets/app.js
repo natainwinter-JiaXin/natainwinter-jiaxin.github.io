@@ -221,6 +221,15 @@ const initTransitions = () => {
   const backBtn = qs("#backBtn");
   const portfolioBackBtn = qs("#portfolioBackBtn");
   let smokeyInitialized = false;
+  const tryInitSmokey = () => {
+    if (smokeyInitialized) return;
+    const ok = initSmokeyFluidCursor();
+    if (ok) smokeyInitialized = true;
+  };
+
+  // Enable smokey effect on the intro screen too.
+  tryInitSmokey();
+
   enterBtn.addEventListener("click", () => {
     document.body.classList.add("view-main");
     if (!smokeyInitialized) {
