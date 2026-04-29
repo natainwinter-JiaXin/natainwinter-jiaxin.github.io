@@ -502,6 +502,9 @@ body.view-portfolio {
     margin: 12px auto;
     padding: 20px 16px;
     border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    max-height: calc(var(--app-height) - 24px);
   }
 
   .viewer-page {
@@ -526,7 +529,8 @@ body.view-portfolio {
   }
 
   .reader-body {
-    max-height: calc(var(--app-height) - 180px);
+    flex: 1;
+    min-height: 0;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
   }

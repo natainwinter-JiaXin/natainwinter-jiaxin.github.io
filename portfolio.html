@@ -16,6 +16,14 @@
     </main>
 
     <script>
+      const syncViewportHeight = () => {
+        document.documentElement.style.setProperty("--app-height", `${window.innerHeight}px`);
+      };
+      syncViewportHeight();
+      window.addEventListener("resize", syncViewportHeight);
+      window.addEventListener("orientationchange", syncViewportHeight);
+      window.scrollTo(0, 0);
+
       const params = new URLSearchParams(location.search);
       const file = params.get("file");
       const type = params.get("type");
