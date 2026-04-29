@@ -46,7 +46,10 @@ body {
   object-fit: cover;
   object-position: 50% 30%;
   transform: scale(1.05);
-  display: none;
+  display: block;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
   z-index: 1;
 }
 
@@ -347,8 +350,11 @@ body.view-intro .bg {
   background-image: none;
 }
 
-body.view-intro #introVideo {
-  display: block;
+body.view-intro #introVideo,
+body.view-main #introVideo,
+body.view-portfolio #introVideo {
+  opacity: 1;
+  visibility: visible;
 }
 
 body.view-intro #fluid {
