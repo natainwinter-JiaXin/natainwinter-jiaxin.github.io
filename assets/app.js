@@ -167,6 +167,9 @@ const syncViewportHeight = () => {
   document.documentElement.style.setProperty("--app-height", `${window.innerHeight}px`);
 };
 
+const prefersNativePdfViewer = () =>
+  window.matchMedia("(pointer: coarse)").matches || window.innerWidth <= 600;
+
 const applyConfig = () => {
   document.title = siteConfig.head.title;
   const meta = document.querySelector('meta[name="description"]');
@@ -394,12 +397,18 @@ const buildPortfolio = () => {
     const card = document.createElement("a");
     card.className = "bento-card";
     if (item.size === "wide") card.classList.add("bento-card--wide");
-    const params = new URLSearchParams({
-      file: item.file,
-      type: item.type,
-      title: item.title,
-    });
-    card.href = `portfolio.html?${params.toString()}`;
+    if (item.type === "pdf" && prefersNativePdfViewer()) {
+      card.href = encodeURI(item.file);
+      card.target = "_self";
+      card.rel = "";
+    } else {
+      const params = new URLSearchParams({
+        file: item.file,
+        type: item.type,
+        title: item.title,
+      });
+      card.href = `portfolio.html?${params.toString()}`;
+    }
     card.target = "_self";
     card.rel = "";
 

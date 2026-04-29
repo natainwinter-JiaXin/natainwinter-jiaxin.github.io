@@ -71,15 +71,21 @@
       };
 
       const fileUrl = file ? encodeURI(file) : "";
+      const prefersNativePdfViewer =
+        window.matchMedia("(pointer: coarse)").matches || window.innerWidth <= 600;
 
       if (!file || !type) {
         showError("未找到作品文件。");
       } else if (type === "pdf") {
-        const embed = document.createElement("embed");
-        embed.className = "reader-embed";
-        embed.src = fileUrl;
-        embed.type = "application/pdf";
-        bodyEl.appendChild(embed);
+        if (prefersNativePdfViewer) {
+          location.replace(fileUrl);
+        } else {
+          const embed = document.createElement("embed");
+          embed.className = "reader-embed";
+          embed.src = fileUrl;
+          embed.type = "application/pdf";
+          bodyEl.appendChild(embed);
+        }
       } else if (type === "txt") {
         fetch(fileUrl)
           .then((res) => res.text())
