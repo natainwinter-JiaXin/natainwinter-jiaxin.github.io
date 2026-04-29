@@ -220,7 +220,16 @@ const initTransitions = () => {
   const enterBtn = qs("#enterBtn");
   const backBtn = qs("#backBtn");
   const portfolioBackBtn = qs("#portfolioBackBtn");
+  const introScreen = qs(".intro");
+  const mainScreen = qs(".main");
+  const portfolioScreen = qs(".portfolio");
   let smokeyInitialized = false;
+  const resetScroll = (screen) => {
+    window.scrollTo(0, 0);
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+    if (screen) screen.scrollTop = 0;
+  };
   const tryInitSmokey = () => {
     if (smokeyInitialized) return;
     const ok = initSmokeyFluidCursor();
@@ -232,6 +241,8 @@ const initTransitions = () => {
 
   enterBtn.addEventListener("click", () => {
     document.body.classList.add("view-main");
+    document.body.classList.remove("view-portfolio");
+    resetScroll(mainScreen);
     if (!smokeyInitialized) {
       const ok = initSmokeyFluidCursor();
       if (!ok) {
@@ -253,6 +264,7 @@ const initTransitions = () => {
     }
     document.body.classList.remove("view-portfolio");
     document.body.classList.remove("view-main");
+    resetScroll(introScreen);
   };
 
   backBtn.addEventListener("click", goBack);
@@ -267,6 +279,7 @@ const initTransitions = () => {
     if (!actionEl) return;
     event.preventDefault();
     document.body.classList.add("view-portfolio");
+    resetScroll(portfolioScreen);
   });
 };
 

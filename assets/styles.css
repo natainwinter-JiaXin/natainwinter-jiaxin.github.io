@@ -396,10 +396,11 @@ body.view-intro #smokey-fluid-canvas {
   display: block;
 }
 
+body.view-intro,
 body.view-main,
 body.view-portfolio,
 .viewer-page {
-  overflow-y: auto;
+  overflow-y: hidden;
 }
 
 @media (max-width: 600px) {
@@ -465,6 +466,12 @@ body.view-portfolio,
     align-content: start;
     padding-top: max(16px, env(safe-area-inset-top));
     padding-bottom: calc(28px + env(safe-area-inset-bottom));
+  }
+
+  body.view-main .main,
+  body.view-portfolio .portfolio,
+  body.view-intro .intro {
+    overflow-y: auto;
   }
 
   .bento-grid {
