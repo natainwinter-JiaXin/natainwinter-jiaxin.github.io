@@ -398,9 +398,14 @@ const buildPortfolio = () => {
     card.className = "bento-card";
     if (item.size === "wide") card.classList.add("bento-card--wide");
     if (item.type === "pdf" && prefersNativePdfViewer()) {
-      card.href = encodeURI(item.file);
+      const pdfUrl = new URL(encodeURI(item.file), window.location.href).href;
+      card.href = pdfUrl;
       card.target = "_self";
       card.rel = "";
+      card.addEventListener("click", (event) => {
+        event.preventDefault();
+        window.location.assign(pdfUrl);
+      });
     } else {
       const params = new URLSearchParams({
         file: item.file,
