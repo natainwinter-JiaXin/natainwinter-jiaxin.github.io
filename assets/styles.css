@@ -463,8 +463,9 @@ body.view-portfolio,
 
   .main,
   .portfolio {
+    place-items: start center;
     align-content: start;
-    padding-top: max(16px, env(safe-area-inset-top));
+    padding-top: max(8px, env(safe-area-inset-top));
     padding-bottom: calc(28px + env(safe-area-inset-bottom));
   }
 
