@@ -82,9 +82,9 @@ const siteConfig = {
       icon: "assets/3d icon/3D Glass Bookmark Icon.png",
     },
     {
-      title: "打破",
+      title: "打牌",
       meta: "TXT",
-      file: "assets/portfolio/打破.txt",
+      file: "assets/portfolio/打牌.txt",
       type: "txt",
       icon: "assets/3d icon/3D Glass Bookmark Icon.png",
     },
