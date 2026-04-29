@@ -273,8 +273,19 @@ const initTransitions = () => {
 const initIntroVideo = () => {
   const introVideo = qs("#introVideo");
   if (!introVideo) return;
+  introVideo.muted = true;
+  introVideo.defaultMuted = true;
+  introVideo.playsInline = true;
+  introVideo.autoplay = true;
+  introVideo.loop = true;
+  introVideo.setAttribute("muted", "");
+  introVideo.setAttribute("playsinline", "");
+  introVideo.setAttribute("webkit-playsinline", "");
+  introVideo.load();
+
   const tryPlay = () => introVideo.play().catch(() => {});
   tryPlay();
+  introVideo.addEventListener("loadeddata", tryPlay, { once: true });
   window.addEventListener("click", tryPlay, { once: true });
 };
 
