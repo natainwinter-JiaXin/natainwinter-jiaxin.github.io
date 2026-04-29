@@ -399,8 +399,7 @@ body.view-intro #smokey-fluid-canvas {
 
 body.view-intro,
 body.view-main,
-body.view-portfolio,
-.viewer-page {
+body.view-portfolio {
   overflow-y: hidden;
 }
 
@@ -505,6 +504,12 @@ body.view-portfolio,
     border-radius: 20px;
   }
 
+  .viewer-page {
+    min-height: var(--app-height);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
   .reader-header {
     align-items: flex-start;
     margin-bottom: 12px;
@@ -518,6 +523,12 @@ body.view-portfolio,
   .reader-text {
     font-size: 15px;
     line-height: 1.8;
+  }
+
+  .reader-body {
+    max-height: calc(var(--app-height) - 180px);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
   }
 
   .reader-embed {
@@ -542,7 +553,8 @@ body.view-portfolio,
 .viewer-page {
   background: radial-gradient(circle at top, #ffffff, var(--bg-a) 60%, #e7ecf6);
   color: var(--ink);
-  min-height: 100vh;
+  min-height: var(--app-height);
+  overflow-y: auto;
 }
 
 .reader {
