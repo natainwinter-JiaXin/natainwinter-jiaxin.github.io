@@ -163,6 +163,10 @@ const siteConfig = {
 
 const qs = (selector) => document.querySelector(selector);
 
+const syncViewportHeight = () => {
+  document.documentElement.style.setProperty("--app-height", `${window.innerHeight}px`);
+};
+
 const applyConfig = () => {
   document.title = siteConfig.head.title;
   const meta = document.querySelector('meta[name="description"]');
@@ -225,10 +229,15 @@ const initTransitions = () => {
   const portfolioScreen = qs(".portfolio");
   let smokeyInitialized = false;
   const resetScroll = (screen) => {
-    window.scrollTo(0, 0);
-    document.documentElement.scrollTop = 0;
-    document.body.scrollTop = 0;
-    if (screen) screen.scrollTop = 0;
+    const applyReset = () => {
+      window.scrollTo(0, 0);
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+      if (screen) screen.scrollTop = 0;
+    };
+    applyReset();
+    requestAnimationFrame(applyReset);
+    window.setTimeout(applyReset, 120);
   };
   const tryInitSmokey = () => {
     if (smokeyInitialized) return;
@@ -370,6 +379,9 @@ const initSmokeyFluidCursor = () => {
 };
 
 applyConfig();
+syncViewportHeight();
+window.addEventListener("resize", syncViewportHeight);
+window.addEventListener("orientationchange", syncViewportHeight);
 initTransitions();
 initFluid();
 initIntroVideo();
