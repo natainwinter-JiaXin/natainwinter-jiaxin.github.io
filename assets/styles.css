@@ -18,6 +18,79 @@
   box-sizing: border-box;
 }
 
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background-image: linear-gradient(90deg, var(--accent), #d9c1d8, var(--accent));
+  background-color: transparent;
+  width: 0%;
+  z-index: 9999;
+  transition: width 100ms ease;
+}
+
+.scrollbar-track {
+  position: fixed;
+  top: 16px;
+  right: 12px;
+  width: 10px;
+  height: calc(100vh - 32px);
+  background: rgba(31, 43, 58, 0.12);
+  border-radius: 999px;
+  z-index: 9999;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.scrollbar-thumb {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 40px;
+  background: linear-gradient(180deg, #556479, var(--ink));
+  border-radius: 999px;
+  transform: translateY(0);
+  transition: transform 120ms ease, height 120ms ease, background 120ms ease;
+}
+
+.scrollbar-track.hidden {
+  opacity: 0;
+}
+
+.portfolio,
+.main,
+.reader-body,
+.screen {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(31, 43, 58, 0.35) rgba(255, 255, 255, 0.6);
+}
+
+.portfolio::-webkit-scrollbar,
+.main::-webkit-scrollbar,
+.reader-body::-webkit-scrollbar,
+.screen::-webkit-scrollbar {
+  width: 10px;
+}
+
+.portfolio::-webkit-scrollbar-track,
+.main::-webkit-scrollbar-track,
+.reader-body::-webkit-scrollbar-track,
+.screen::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 999px;
+}
+
+.portfolio::-webkit-scrollbar-thumb,
+.main::-webkit-scrollbar-thumb,
+.reader-body::-webkit-scrollbar-thumb,
+.screen::-webkit-scrollbar-thumb {
+  background: rgba(31, 43, 58, 0.35);
+  border-radius: 999px;
+}
+
+
 body {
   margin: 0;
   color: var(--ink);
@@ -348,6 +421,20 @@ body.view-main .intro {
   pointer-events: none;
 }
 
+body.view-intro .intro {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+body.view-intro .main {
+  pointer-events: none;
+}
+
+body.view-intro .portfolio {
+  pointer-events: none;
+}
+
 body.view-intro #introVideo,
 body.view-main #introVideo,
 body.view-portfolio #introVideo {
@@ -397,10 +484,18 @@ body.view-intro #smokey-fluid-canvas {
   display: block;
 }
 
-body.view-intro,
+body.view-intro {
+  overflow-y: hidden;
+}
+
 body.view-main,
 body.view-portfolio {
-  overflow-y: hidden;
+  overflow-y: auto;
+}
+
+body.view-main .main,
+body.view-portfolio .portfolio {
+  overflow-y: auto;
 }
 
 @media (max-width: 600px) {

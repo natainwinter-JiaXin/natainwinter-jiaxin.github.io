@@ -5,9 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>My Home</title>
     <meta name="description" content="Personal homepage" />
-    <link rel="stylesheet" href="assets/styles.css" />
+    <link rel="stylesheet" href="assets/styles.css?v=2" />
   </head>
   <body class="view-intro">
+    <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+    <div class="scrollbar-track" id="verticalScrollBar" aria-hidden="true">
+      <div class="scrollbar-thumb" id="verticalScrollThumb"></div>
+    </div>
     <div class="bg">
       <video
         id="introVideo"
@@ -68,6 +72,6 @@
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/smokey-fluid-cursor@latest/dist/index.global.js"></script>
-    <script src="assets/app.js"></script>
+    <script src="assets/app.js?v=2"></script>
   </body>
 </html>
