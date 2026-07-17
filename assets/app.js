@@ -527,11 +527,7 @@ const buildPortfolio = () => {
     title.className = "bento-title";
     title.textContent = item.title;
 
-    const meta = document.createElement("span");
-    meta.className = "bento-meta";
-    meta.textContent = item.meta;
-
-    card.append(icon, title, meta);
+    card.append(icon, title);
     grid.appendChild(card);
   });
 };
