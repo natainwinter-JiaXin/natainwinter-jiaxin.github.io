@@ -208,13 +208,6 @@ const siteConfig = {
       icon: "assets/3d icon/3D Glass Bookmark Icon.png",
     },
     {
-      title: "科科",
-      meta: "TXT",
-      file: "assets/portfolio/科科.txt",
-      type: "txt",
-      icon: "assets/3d icon/3D Glass Bookmark Icon.png",
-    },
-    {
       title: "留学",
       meta: "TXT",
       file: "assets/portfolio/留学.txt",
