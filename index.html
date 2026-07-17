@@ -15,17 +15,18 @@
     <div class="bg">
       <video
         id="introVideo"
-        src="assets/water.mp4"
+        src="assets/fish.mov"
         autoplay
         muted
         loop
         playsinline
         webkit-playsinline
         preload="auto"
-        poster="assets/water.mp4.png"
         aria-hidden="true"
       >
+        <source src="assets/fish.mov" type="video/quicktime" />
         <source src="assets/water.mp4" type="video/mp4" />
+        Your browser does not support this video format.
       </video>
       <canvas id="fluid"></canvas>
       <div class="noise"></div>
