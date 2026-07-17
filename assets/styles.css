@@ -6,9 +6,10 @@
   --ink: #1f2b3a;
   --muted: #556479;
   --accent: #d9c1d8;
-  --card: rgba(255, 255, 255, 0.86);
-  --stroke: rgba(31, 43, 58, 0.18);
-  --shadow: 0 30px 60px rgba(31, 43, 58, 0.18);
+  --card: rgba(255, 255, 255, 0.92);
+  --card-border: rgba(255, 255, 255, 0.7);
+  --stroke: rgba(31, 43, 58, 0.12);
+  --shadow: 0 24px 48px rgba(31, 43, 58, 0.16);
   --app-height: 100vh;
 }
 
@@ -258,15 +259,27 @@ body {
 }
 
 .card {
-  background: var(--card);
-  border: 1px solid var(--stroke);
+  position: relative;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.24);
+  border: 1px solid rgba(255, 255, 255, 0.95);
   border-radius: 24px;
   padding: 36px 40px;
   width: min(520px, 92vw);
   max-width: 100%;
   text-align: center;
-  box-shadow: var(--shadow);
-  backdrop-filter: blur(10px);
+  box-shadow: 0 40px 100px rgba(31, 43, 58, 0.28);
+  backdrop-filter: blur(40px);
+  background-clip: padding-box;
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0.05));
+  opacity: 0.4;
 }
 
 .portfolio-card {
@@ -340,16 +353,29 @@ body {
 }
 
 .bento-card {
+  position: relative;
+  overflow: hidden;
   display: grid;
   gap: 10px;
-  padding: 16px;
-  border-radius: 18px;
-  border: 1px solid var(--stroke);
-  background: rgba(255, 255, 255, 0.9);
+  padding: 18px;
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.95);
+  background: rgba(255, 255, 255, 0.24);
   text-decoration: none;
   color: var(--ink);
   min-height: 110px;
   transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease;
+  box-shadow: 0 28px 60px rgba(31, 43, 58, 0.22);
+  backdrop-filter: blur(34px);
+}
+
+.bento-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.04));
+  opacity: 0.5;
 }
 
 .bento-card:hover {
