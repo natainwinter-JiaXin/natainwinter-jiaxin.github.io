@@ -736,3 +736,93 @@ body.view-portfolio .portfolio {
 .reader-error {
   color: var(--muted);
 }
+
+.reader-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(28px, 5vw, 72px);
+  align-items: start;
+  min-height: 60vh;
+}
+
+.reader-has-art .reader-layout {
+  grid-template-columns: minmax(0, 1fr) minmax(260px, 38%);
+}
+
+.reader-body {
+  min-width: 0;
+}
+
+.reader-art {
+  align-self: stretch;
+  display: none;
+  justify-content: center;
+  margin: 0;
+  min-height: 60vh;
+  pointer-events: none;
+}
+
+.reader-has-art .reader-art {
+  display: flex;
+}
+
+.reader-art img {
+  width: min(100%, 420px);
+  max-height: 68vh;
+  object-fit: contain;
+  object-position: center top;
+  filter: drop-shadow(0 24px 36px rgba(31, 43, 58, 0.18));
+}
+
+@media (min-width: 901px) {
+  .reader {
+    width: min(1500px, 94vw);
+  }
+}
+
+@media (max-width: 900px) {
+  .reader {
+    width: min(100% - 28px, 900px);
+    margin: 18px auto;
+  }
+
+  .reader-has-art .reader-layout,
+  .reader-layout {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .reader-art {
+    min-height: auto;
+  }
+
+  .reader-art img {
+    width: min(72vw, 320px);
+    max-height: 44vh;
+  }
+}
+
+@media (max-width: 600px) {
+  .reader {
+    width: min(100% - 24px, 900px);
+    margin: 12px auto;
+    padding: 20px 16px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    max-height: none;
+  }
+
+  .reader-body {
+    overflow-y: visible;
+  }
+
+  .reader-layout {
+    min-height: auto;
+  }
+
+  .reader-art img {
+    width: min(78vw, 280px);
+    max-height: 38vh;
+  }
+}

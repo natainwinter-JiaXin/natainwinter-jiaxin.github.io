@@ -638,6 +638,7 @@ initScrollProgress();
 
     const titleEl = document.getElementById("readerTitle");
     const bodyEl = document.getElementById("readerBody");
+    document.body.classList.toggle("reader-has-art", type !== "pdf");
     if (!bodyEl) return;
     if (title && titleEl) titleEl.textContent = title;
 
