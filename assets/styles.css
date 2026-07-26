@@ -683,6 +683,7 @@ body.view-portfolio .portfolio {
 }
 
 .reader {
+  position: relative;
   width: min(900px, 92vw);
   margin: 6vh auto;
   background: var(--card);
@@ -690,9 +691,12 @@ body.view-portfolio .portfolio {
   border-radius: 24px;
   padding: 28px 32px;
   box-shadow: var(--shadow);
+  overflow: hidden;
 }
 
 .reader-header {
+  position: relative;
+  z-index: 2;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -738,6 +742,8 @@ body.view-portfolio .portfolio {
 }
 
 .reader-layout {
+  position: relative;
+  z-index: 2;
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   gap: clamp(28px, 5vw, 72px);
@@ -768,22 +774,28 @@ body.view-portfolio .portfolio {
 }
 
 .reader-art img {
+  position: relative;
+  z-index: 1;
   width: min(100%, 420px);
   max-height: 68vh;
   object-fit: contain;
   object-position: center top;
-  filter: drop-shadow(0 24px 36px rgba(31, 43, 58, 0.18));
+  filter: none;
 }
 
 .reader-octopus {
-  position: absolute;
-  right: clamp(4px, 2vw, 28px);
-  bottom: clamp(8px, 4vh, 54px);
-  width: min(52%, 240px);
-  aspect-ratio: 1;
-  border-radius: 50%;
-  opacity: 0.76;
-  mix-blend-mode: multiply;
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: none;
+  width: 100vw;
+  height: 100vh;
+  opacity: 0.95;
+  pointer-events: none;
+}
+
+.reader-has-art .reader-octopus {
+  display: block;
 }
 
 @media (min-width: 901px) {
@@ -814,10 +826,7 @@ body.view-portfolio .portfolio {
   }
 
   .reader-octopus {
-    right: 50%;
-    bottom: 2px;
-    width: min(44vw, 180px);
-    transform: translateX(50%);
+    opacity: 0.9;
   }
 }
 
@@ -846,6 +855,6 @@ body.view-portfolio .portfolio {
   }
 
   .reader-octopus {
-    width: min(48vw, 150px);
+    opacity: 0.88;
   }
 }
