@@ -3,7 +3,6 @@
   const type = params.get("type");
   const canvas = document.getElementById("readerOctopus");
   const reader = document.querySelector(".reader");
-  const body = document.getElementById("readerBody");
 
   if (!canvas || !reader || type === "pdf") return;
 
@@ -20,9 +19,13 @@
     ctx.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
   };
 
-  const randomSpeed = () => {
-    const speed = 0.28 + Math.random() * 0.48;
-    return Math.random() < 0.5 ? -speed : speed;
+  const randomVelocity = () => {
+    const angle = Math.random() * Math.PI * 2;
+    const speed = 0.55 + Math.random() * 0.45;
+    return {
+      x: Math.cos(angle) * speed,
+      y: Math.sin(angle) * speed,
+    };
   };
 
   const getRandomOpenSpot = (size) => {
@@ -47,17 +50,23 @@
     }
 
     if (!velocity.x || !velocity.y) {
-      velocity = { x: randomSpeed(), y: randomSpeed() };
+      velocity = randomVelocity();
     }
 
-    if (Math.random() < 0.012) {
-      velocity.x += (Math.random() - 0.5) * 0.08;
-      velocity.y += (Math.random() - 0.5) * 0.08;
+    if (Math.random() < 0.018) {
+      const turn = (Math.random() - 0.5) * 0.32;
+      const cos = Math.cos(turn);
+      const sin = Math.sin(turn);
+      velocity = {
+        x: velocity.x * cos - velocity.y * sin,
+        y: velocity.x * sin + velocity.y * cos,
+      };
     }
 
-    const maxSpeed = 0.9;
-    velocity.x = Math.min(Math.max(velocity.x, -maxSpeed), maxSpeed);
-    velocity.y = Math.min(Math.max(velocity.y, -maxSpeed), maxSpeed);
+    const speed = Math.hypot(velocity.x, velocity.y) || 1;
+    const targetSpeed = 0.72;
+    velocity.x = (velocity.x / speed) * targetSpeed;
+    velocity.y = (velocity.y / speed) * targetSpeed;
 
     const margin = size * 0.58 + 12;
     const nextPosition = {
@@ -77,10 +86,7 @@
 
     position = keepInBounds(nextPosition, size);
 
-    return {
-      x: position.x + Math.sin(time / 15) * size * 0.08,
-      y: position.y + Math.cos(time / 19) * size * 0.07,
-    };
+    return position;
   };
 
   const drawPoint = (x, y, t, scale, offsetX, offsetY) => {
@@ -103,22 +109,10 @@
     ctx.clearRect(0, 0, width, height);
 
     const spot = wander(octopusSize);
-    const swimX = Math.sin(time / 18) * octopusSize * 0.12;
-    const swimY = Math.cos(time / 25) * octopusSize * 0.1;
-    const originX = spot.x - octopusSize / 2 + swimX;
-    const originY = spot.y - octopusSize / 2 + swimY;
-    const scale = octopusSize / 400;
-    const glow = ctx.createRadialGradient(spot.x, spot.y, 0, spot.x, spot.y, octopusSize * 0.68);
 
-    glow.addColorStop(0, "rgba(247, 244, 234, 0.74)");
-    glow.addColorStop(0.32, "rgba(222, 217, 226, 0.44)");
-    glow.addColorStop(0.58, "rgba(192, 185, 221, 0.34)");
-    glow.addColorStop(0.82, "rgba(117, 201, 200, 0.24)");
-    glow.addColorStop(1, "rgba(128, 161, 212, 0)");
-    ctx.fillStyle = glow;
-    ctx.beginPath();
-    ctx.arc(spot.x, spot.y, octopusSize * 0.68, 0, Math.PI * 2);
-    ctx.fill();
+    const originX = spot.x - octopusSize / 2;
+    const originY = spot.y - octopusSize / 2;
+    const scale = octopusSize / 400;
 
     const colors = [
       "rgba(247, 244, 234, 0.86)",
